@@ -3,12 +3,6 @@ import BaseLayout from "./BaseLayout.astro";
 const { frontmatter } = Astro.props;
 ---
 
-<style>
-  .img {
-    filter: invert(0.1);
-  }
-</style>
-
 <BaseLayout pageTitle={frontmatter.title}>
   发表于：{frontmatter.pubDate.toString().slice(0, 10)}
   <p><em>{frontmatter.description}</em></p>
@@ -19,5 +13,37 @@ const { frontmatter } = Astro.props;
     alt={frontmatter.image.alt}
     class="img"
   />
+  <div class="tags">
+    {
+      frontmatter.tags.map((tag) => (
+        <p class="tag">
+          <a href={`/tags/${tag}`}>{tag}</a>
+        </p>
+      ))
+    }
+  </div>
   <slot />
 </BaseLayout>
+
+<style>
+  .img {
+    filter: invert(0.1);
+  }
+  a {
+    color: #00539f;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    margin: 0.25em;
+    border: dotted 1px #a1a1a1;
+    border-radius: 0.5em;
+    padding: 0.5em 1em;
+    font-size: 1.15em;
+    background-color: #f8fcfd;
+  }
+</style>
